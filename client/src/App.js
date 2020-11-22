@@ -1,6 +1,8 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import Shuffler from './Shuffler';
+
 import React, {useState} from 'react';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
@@ -21,6 +23,10 @@ function App() {
           </Button>
         </Navbar.Collapse>
       </Navbar>
+
+      <Container>
+        <Shuffler />
+      </Container>
 
     </div>
   );
