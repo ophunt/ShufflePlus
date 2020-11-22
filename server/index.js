@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { v4 as uuid } from "uuid";
 import SpotifyWebApi from "spotify-web-api-node";
 import dotenv from "dotenv";
@@ -6,6 +7,23 @@ dotenv.config();
 
 const app = express();
 const PORT = 5000;
+
+const env = process.env.NODE_ENV || "development";
+if (env === "development") {
+    app.use(cors());
+} else {
+    const whitelist = ["localhost:3000"]
+    const corsOptions = {
+        origin: function (origin, callback) {
+            if (whitelist.indexOf(origin) !== -1) {
+                callback(null, true)
+            } else {
+                callback(new Error('Illegal domain'))
+            }
+        }
+    }
+    app.use(cors(corsOptions));
+}
 
 const spotifyAPI = new SpotifyWebApi({
     clientId: process.env.CLIENT_ID,
@@ -58,23 +76,21 @@ app.get("/authorized", (req, res) => {
 });
 
 app.get("/playlists", (req, res) => {
-    const code = req.query.code;
-    spotifyAPI.authorizationCodeGrant(code).then(
-        async (data) => {
-            // Set the access token on the API object to use it in later calls
-            spotifyAPI.setAccessToken(data.body['access_token']);
-            spotifyAPI.setRefreshToken(data.body['refresh_token']);
+    const token = req.query.token;
 
-            const user = (await spotifyAPI.getMe()).body.display_name;
-            const playlists = (await spotifyAPI.getUserPlaylists(user)).body;
-            res.send(`<b><u>Playlists for user ${user}:</u></b><br>${playlists.items.map(p => p.name).join("<br>")}`);
-        },
-        (err) => {
-            console.err("Error: ", err);
-        }
-    );
+    // Set the access token on the API object to use it in later calls
+    spotifyAPI.setAccessToken(token);
+
+    spotifyAPI.getMe()
+        .then((meRes) => {
+            const user = meRes.body.display_name;
+            spotifyAPI.getUserPlaylists(user).then((plRes) => {
+                res.send(plRes.body);
+            })
+
+        })
 })
 
 app.listen(PORT, () => {
-    console.log(`Example app listening at http://localhost:${PORT}`);
+    console.log(`App running in mode ${env} at http://localhost:${PORT}`);
 });
