@@ -47,7 +47,8 @@ app.get("/authorized", (req, res) => {
                 console.log('The access token is ' + data.body.access_token);
                 console.log('The refresh token is ' + data.body.refresh_token);
 
-                res.send(JSON.stringify({token: data.body.access_token}));
+                const clientURL = `http://localhost:3000/?access_token=${data.body.access_token}`;
+                res.redirect(clientURL);
             },
             (err) => {
                 console.err("Error: ", err);
