@@ -10,24 +10,30 @@ import Button from 'react-bootstrap/Button';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(0);
+  const [playlists, setPlaylists] = useState([]);
+  const [playlistsLoaded, setPlaylistsLoaded] = useState(false);
 
   let search = window.location.search;
   let params = new URLSearchParams(search);
-  const [token, setToken] = useState(params.get("access_token"));
-  const [playlists, setPlaylists] = useState([]);
+  const token = params.get("access_token");
 
   useEffect(() => {
-    const playlistURL = `http://localhost:5000/playlists?token=${token}`;
-    fetch(playlistURL)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          console.log(res);
-        }
-      })
-      .then((res) => setPlaylists(res))
-      .catch((err) => console.log(err));
+    if (token !== null) {
+      const playlistURL = `http://localhost:5000/playlists?token=${token}`;
+      fetch(playlistURL)
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          } else {
+            console.log(res);
+          }
+        })
+        .then((res) => {
+          setPlaylists(res);
+          setPlaylistsLoaded(true);
+        })
+        .catch((err) => console.log(err));
+    }
   }, [token]);
 
   return (
@@ -43,7 +49,9 @@ function App() {
       </Navbar>
 
       <Container>
-        <p>{JSON.stringify(playlists)}</p>
+        {playlistsLoaded ?
+          playlists.items.map((p) => <p>{p.name}</p>) : null
+        }
         <Shuffler />
       </Container>
     </div>
