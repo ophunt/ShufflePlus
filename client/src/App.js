@@ -18,7 +18,7 @@ function App() {
         <Navbar.Brand href="#home" style={{color: "#ffffff"}}>Shuffle+</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Button variant="success" className="ml-auto">
+          <Button variant="success" className="ml-auto" href="http://localhost:5000/authorize">
             {(loggedIn == 0) ? "Login to Spotify" : "Log Out"}
           </Button>
         </Navbar.Collapse>
