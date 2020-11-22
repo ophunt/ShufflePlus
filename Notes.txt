@@ -1,0 +1,6 @@
+- React Bootstrap
+- Dataflow
+  * Log in with Spotify
+  * User picks two of their playlists (or enters playlist IDs manually)
+  * Application generates shuffled combination
+  * Allows user to save this new playlist to their Spotify
