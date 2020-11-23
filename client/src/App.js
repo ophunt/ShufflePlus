@@ -64,9 +64,7 @@ function App() {
         {/* {playlistsLoaded ?
           playlists.items.map((p) => <p>{p.name}</p>) : null
         } */}
-
-
-        <Shuffler />
+        <Shuffler loggedIn={loggedIn} playlistsLoaded={playlistsLoaded} playlists={playlists}/>
       </Container>
     </div>
   );
