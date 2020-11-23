@@ -67,7 +67,7 @@ function Shuffler({ token, loggedIn, playlistsLoaded, playlists }) {
                         <Form>
                             <Form.Group controlId="selectPlaylistName">
                                 <Form.Label>Enter a name for the new playlist:</Form.Label>
-                                <Form.Control type="text" onChange={(e) => setPlaylistName(e.target.value)}></Form.Control>
+                                <Form.Control type="text" placeholder="Shuffle+ Combined Playlist" onChange={(e) => setPlaylistName(e.target.value)}></Form.Control>
                             </Form.Group>
                             <Form.Group controlId="selectPlaylist1">
                                 <Form.Label>Select first playlist:</Form.Label>
