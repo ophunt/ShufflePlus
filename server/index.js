@@ -17,7 +17,7 @@ if (env === "development") {
     const whitelist = [`${CLIENT_URL}:${CLIENT_PORT}`]
     const corsOptions = {
         origin: function (origin, callback) {
-            if (whitelist.indexOf(origin) !== -1) {
+            if (!origin || whitelist.indexOf(origin) !== -1) {
                 callback(null, true)
             } else {
                 callback(new Error(`Illegal domain ${origin} not in legal list ${whitelist.join(", ")}`))
