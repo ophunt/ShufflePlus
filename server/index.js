@@ -91,7 +91,7 @@ app.get("/shuffle", async (req, res) => {
     const p1 = req.query.p1;
     const p2 = req.query.p2;
     const allow_duplicates = req.query.d;
-    const name = req.query.name;
+    const name = req.query.name || "Shuffle+ Combined Playlist";
     
     // Fetch tracks
     spotifyAPI.setAccessToken(token);
@@ -105,7 +105,7 @@ app.get("/shuffle", async (req, res) => {
     const playlistTracks = allow_duplicates ? allTracks : [...new Set(array)];
     
     // Make a new playlist
-    const newPlaylist = await spotifyAPI.createPlaylist("Test", { "description": "Powered by ShufflePlus" });
+    const newPlaylist = await spotifyAPI.createPlaylist(name, { "description": "Powered by Shuffle+" });
 
     // Put all the tracks in the playlist
     spotifyAPI.addTracksToPlaylist(newPlaylist.body.id, playlistTracks);
