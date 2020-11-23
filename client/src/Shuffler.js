@@ -4,13 +4,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Form, Carousel, Button } from 'react-bootstrap';
 
-function submitForm(playlist1, playlist2, duplicates) {
+function submitForm(token, playlist1, playlist2, duplicates) {
     console.log(playlist1);
     console.log(playlist2);
-    const playlistURL = `http://localhost:5000/shuffle?p1=${playlist1}&p2=${playlist2}&d=${duplicates}`;
+    const playlistURL = `http://localhost:5000/shuffle?token=${token}&p1=${playlist1}&p2=${playlist2}&d=${duplicates}`;
+    fetch(playlistURL);
 }
 
-function Shuffler({ loggedIn, playlistsLoaded, playlists }) {
+function Shuffler({ token, loggedIn, playlistsLoaded, playlists }) {
     const [playlist1, setPlaylist1] = useState("");
     const [playlist2, setPlaylist2] = useState("");
     const [duplicates, setDuplicates] = useState(false);
@@ -80,7 +81,7 @@ function Shuffler({ loggedIn, playlistsLoaded, playlists }) {
                                 </Form.Control>
                             </Form.Group>
                             <Form.Check type="switch" id="duplicateSwitch" label="Allow duplicates in the resulting playlist" onChange={(e) => setDuplicates(!duplicates)}></Form.Check>
-                            <Button variant="success" onClick={() => submitForm(playlist1, playlist2, duplicates)}>Shuffle!</Button>
+                            <Button variant="success" onClick={() => submitForm(token, playlist1, playlist2, duplicates)}>Shuffle!</Button>
                         </Form>
                     </Col>
                 </Row>

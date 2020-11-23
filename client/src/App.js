@@ -70,7 +70,7 @@ function App() {
       </Navbar>
 
       <Container>
-        <Shuffler loggedIn={loggedIn} playlistsLoaded={playlistsLoaded} playlists={playlists}/>
+        <Shuffler token={token} loggedIn={loggedIn} playlistsLoaded={playlistsLoaded} playlists={playlists}/>
       </Container>
     </div>
   );

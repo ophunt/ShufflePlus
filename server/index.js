@@ -86,11 +86,29 @@ app.get("/playlists", (req, res) => {
         })
 })
 
-app.get("/shuffle", (req, res) => {
+app.get("/shuffle", async (req, res) => {
+    const token = req.query.token;
     const p1 = req.query.p1;
     const p2 = req.query.p2;
-    const d = req.query.d;
+    const allow_duplicates = req.query.d;
+    const name = req.query.name;
     
+    // Fetch tracks
+    spotifyAPI.setAccessToken(token);
+    const p1Tracks = (await spotifyAPI.getPlaylistTracks(p1)).body.items;
+    const p2Tracks = (await spotifyAPI.getPlaylistTracks(p2)).body.items;
+
+    // Combine and map to track id
+    const allTracks = p1Tracks.concat(p2Tracks).map(t => t.track.id);
+
+    // Dedup if necessary
+    const playlistTracks = allow_duplicates ? allTracks : [...new Set(array)];
+    
+    // Make a new playlist
+    const newPlaylist = await spotifyAPI.createPlaylist("Test", { "description": "Powered by ShufflePlus" });
+    console.log(newPlaylist);
+
+    // Put all the tracks in the playlist
 })
 
 app.listen(PORT, () => {
