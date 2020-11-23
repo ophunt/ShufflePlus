@@ -61,9 +61,6 @@ function App() {
       </Navbar>
 
       <Container>
-        {/* {playlistsLoaded ?
-          playlists.items.map((p) => <p>{p.name}</p>) : null
-        } */}
         <Shuffler loggedIn={loggedIn} playlistsLoaded={playlistsLoaded} playlists={playlists}/>
       </Container>
     </div>

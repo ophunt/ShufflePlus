@@ -92,6 +92,13 @@ app.get("/playlists", (req, res) => {
         })
 })
 
+app.post("/shuffle?p1=:p1&p2=:p2", (req, res) => {
+    const p1 = req.params.p1;
+    const p2 = req.params.p2;
+
+    
+})
+
 app.listen(PORT, () => {
     console.log(`App running in mode ${env} at http://localhost:${PORT}`);
 });
