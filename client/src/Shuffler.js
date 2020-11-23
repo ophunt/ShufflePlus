@@ -1,9 +1,8 @@
-import './App.css';
+import './Shuffler.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import React, {useState} from 'react';
-import Button from 'react-bootstrap/Button';
-import {Row, Col, Form} from 'react-bootstrap';
+import {Row, Col, Form, Carousel, Button} from 'react-bootstrap';
 
 function submitForm(playlist1, playlist2, duplicates) {
     const playlistURL = `http://localhost:5000/shuffle?p1=${playlist1}&p2=${playlist2}&d=${duplicates}`;
@@ -20,13 +19,37 @@ function Shuffler(props) {
             {/* splash screen */}
             {props.loggedIn === 0 && 
             <div>
-                <Row style={{paddingTop: "5%"}}>
-                    <Col className="text-center">
+                <Row style={{paddingTop: "1%"}}>
+                    {/* <Col className="text-center">
                         <img src="/shufflelogo298x228.png" alt="Shuffle+ logo"></img>
                         <h1 style={{paddingTop: "3%"}}>Welcome to <strong>Shuffle+</strong></h1>
                         <p>Intelligently combine and shuffle your Spotify playlists</p>
                         <h4>Login to Spotify to continue</h4>
-                    </Col>
+                    </Col> */}
+
+                    <Carousel className="text-center carousel" style={{maxWidth: "100%"}}>
+                        <Carousel.Item>
+                            <img src="/party.jpg" alt="Party" style={{maxWidth: "100%"}}></img>
+                            <Carousel.Caption>
+                                <h3>Set the playlist and party on</h3>
+                                <p>Stop worrying about adding songs to the queue</p>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img src="/dj.jpg" alt="DJ" style={{maxWidth: "100%"}}></img>
+                            <Carousel.Caption>
+                                <h3>Be your own DJ</h3>
+                                <p>Mix and match songs into one fantastic playlist</p>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img src="/headphones.jpg" alt="Headphones" style={{maxWidth: "100%"}}></img>
+                            <Carousel.Caption>
+                                <h3>Take all your music with you</h3>
+                                <p>Listen to your favorite songs without switching albums</p>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                    </Carousel>
                 </Row>
             </div>
             }
@@ -34,7 +57,7 @@ function Shuffler(props) {
             {/* logged in */}
             {props.loggedIn === 1 && 
             <div><Row style={{paddingTop: "5%"}}>
-                    <Col className="text-center">
+                    <Col className="text-center form">
                         <Form>
                             <Form.Group controlId="selectPlaylist1">
                                 <Form.Label>Select first playlist:</Form.Label>

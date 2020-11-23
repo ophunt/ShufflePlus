@@ -50,13 +50,22 @@ function App() {
   return (
     <div className="App">
       <Navbar className="navbar" expand="lg">
-        <Navbar.Brand href="#home" style={{ color: "#ffffff" }}>Shuffle+</Navbar.Brand>
+        <Navbar.Brand style={{ color: "#ffffff" }}>
+            <img src="/shufflelogo298x228.png" 
+                alt="Shuffle+ logo" 
+                width="36" 
+                height="30" 
+                className="d-inline-block align-top" 
+                alt="Shuffle+ logo"></img>
+            {" "}Shuffle+
+        </Navbar.Brand>
         
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-        <Button variant="success" className="ml-auto" onClick={() => login(loggedIn)}>
-            {(loggedIn === 0) ? "Login to Spotify" : "Log Out"}
-        </Button>
+            <Navbar.Text style={{color: "gray"}}>Intelligently combine and shuffle your Spotify playlists</Navbar.Text>
+            <Button variant="success" className="ml-auto" onClick={() => login(loggedIn)}>
+                {(loggedIn === 0) ? "Login to Spotify" : "Log Out"}
+            </Button>
         </Navbar.Collapse>
       </Navbar>
 
