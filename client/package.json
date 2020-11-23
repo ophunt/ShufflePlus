@@ -16,6 +16,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "production": "serve -s build -p 80",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
