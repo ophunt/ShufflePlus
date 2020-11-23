@@ -7,12 +7,13 @@ dotenv.config();
 
 const app = express();
 const PORT = 5000;
+const CLIENT_PORT = 80;
 
 const env = process.env.NODE_ENV || "development";
 if (env === "development") {
     app.use(cors());
 } else {
-    const whitelist = ["localhost:3000"]
+    const whitelist = [`localhost:${CLIENT_PORT}`]
     const corsOptions = {
         origin: function (origin, callback) {
             if (whitelist.indexOf(origin) !== -1) {
@@ -43,7 +44,7 @@ const SPOTIFY_SCOPES = [
 let uuids = {};
 
 app.get("/", (req, res) => {
-    res.send(`Hello World!<br><a href="/authorize" target="_blank">Log in to Spotify</a>`);
+    res.send(`Shuffle+ Backend API. Please use through authorized client.`);
 });
 
 app.get("/authorize", (req, res) => {
@@ -61,7 +62,7 @@ app.get("/authorized", (req, res) => {
     } else {
         spotifyAPI.authorizationCodeGrant(code).then(
             async (data) => {
-                const clientURL = `http://localhost:3000/?access_token=${data.body.access_token}`;
+                const clientURL = `http://localhost:${CLIENT_PORT}/?access_token=${data.body.access_token}`;
                 res.redirect(clientURL);
             },
             (err) => {
