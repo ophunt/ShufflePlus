@@ -20,13 +20,6 @@ function Shuffler(props) {
             {props.loggedIn === 0 && 
             <div>
                 <Row style={{paddingTop: "1%"}}>
-                    {/* <Col className="text-center">
-                        <img src="/shufflelogo298x228.png" alt="Shuffle+ logo"></img>
-                        <h1 style={{paddingTop: "3%"}}>Welcome to <strong>Shuffle+</strong></h1>
-                        <p>Intelligently combine and shuffle your Spotify playlists</p>
-                        <h4>Login to Spotify to continue</h4>
-                    </Col> */}
-
                     <Carousel className="text-center carousel" style={{maxWidth: "100%"}}>
                         <Carousel.Item>
                             <img src="/party.jpg" alt="Party" style={{maxWidth: "100%"}}></img>

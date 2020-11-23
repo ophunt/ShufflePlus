@@ -92,10 +92,10 @@ app.get("/playlists", (req, res) => {
         })
 })
 
-app.post("/shuffle?p1=:p1&p2=:p2&d=:d", (req, res) => {
-    const p1 = req.params.p1;
-    const p2 = req.params.p2;
-    const d = req.params.d;
+app.get("/shuffle", (req, res) => {
+    const p1 = req.query.p1;
+    const p2 = req.query.p2;
+    const d = req.query.d;
     
 })
 
