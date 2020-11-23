@@ -61,10 +61,6 @@ app.get("/authorized", (req, res) => {
     } else {
         spotifyAPI.authorizationCodeGrant(code).then(
             async (data) => {
-                console.log('The token expires in ' + data.body.expires_in);
-                console.log('The access token is ' + data.body.access_token);
-                console.log('The refresh token is ' + data.body.refresh_token);
-
                 const clientURL = `http://localhost:3000/?access_token=${data.body.access_token}`;
                 res.redirect(clientURL);
             },
