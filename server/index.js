@@ -84,11 +84,9 @@ app.get("/playlists", (req, res) => {
     spotifyAPI.getMe()
         .then((meRes) => {
             const user = meRes.body.id;
-            console.log(user);
             spotifyAPI.getUserPlaylists(user).then((plRes) => {
                 res.send(plRes.body);
             })
-
         })
 })
 

@@ -1,0 +1,25 @@
+{
+  "name": "shuffleplus",
+  "version": "1.0.0",
+  "description": "Merge Spotify playlists dynamically",
+  "main": "none",
+  "dependencies": {
+    "spotify-web-api-node": "^5.0.0",
+    "uuid": "^8.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "install-all": "npm install . ./client ./server",
+    "dev": "echo Owen still needs to install concurrently lol"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ophunt/ShufflePlus.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ophunt/ShufflePlus/issues"
+  },
+  "homepage": "https://github.com/ophunt/ShufflePlus#readme"
+}
