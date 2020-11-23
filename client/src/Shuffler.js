@@ -5,13 +5,14 @@ import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import {Row, Col, Form} from 'react-bootstrap';
 
-function submitForm(playlist1, playlist2) {
-    const playlistURL = `http://localhost:5000/shuffle?p1=${playlist1}&p2=${playlist2}`;
+function submitForm(playlist1, playlist2, duplicates) {
+    const playlistURL = `http://localhost:5000/shuffle?p1=${playlist1}&p2=${playlist2}&d=${duplicates}`;
 }
 
 function Shuffler(props) {
-    const [playlist1, setPlaylist1] = useState(0);
-    const [playlist2, setPlaylist2] = useState(0);
+    const [playlist1, setPlaylist1] = useState("");
+    const [playlist2, setPlaylist2] = useState("");
+    const [duplicates, setDuplicates] = useState(false);
 
     return (
         <div>
@@ -51,7 +52,8 @@ function Shuffler(props) {
                                     }
                                 </Form.Control>
                             </Form.Group>
-                            <Button variant="success" onClick={() => submitForm(playlist1, playlist2)}>Shuffle!</Button>
+                            <Form.Check type="switch" id="duplicateSwitch" label="Allow duplicates in the resulting playlist" onChange={(e) => setDuplicates(!duplicates)}></Form.Check>
+                            <Button variant="success" onClick={() => submitForm(playlist1, playlist2, duplicates)}>Shuffle!</Button>
                         </Form>
                     </Col>
                 </Row>
