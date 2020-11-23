@@ -8,6 +8,15 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 
+function login(loggedIn) {
+    if(loggedIn === 0) {
+        window.location.href="http://localhost:5000/authorize";
+    }
+    else {
+        window.location.href="http://localhost:3000";
+    }
+}
+
 function App() {
   const [loggedIn, setLoggedIn] = useState(0);
   const [playlists, setPlaylists] = useState([]);
@@ -19,6 +28,8 @@ function App() {
 
   useEffect(() => {
     if (token !== null) {
+      setLoggedIn(1);
+
       const playlistURL = `http://localhost:5000/playlists?token=${token}`;
       fetch(playlistURL)
         .then((res) => {
@@ -40,18 +51,21 @@ function App() {
     <div className="App">
       <Navbar className="navbar" expand="lg">
         <Navbar.Brand href="#home" style={{ color: "#ffffff" }}>Shuffle+</Navbar.Brand>
+        
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Button variant="success" className="ml-auto" href="http://localhost:5000/authorize">
+        <Button variant="success" className="ml-auto" onClick={() => login(loggedIn)}>
             {(loggedIn === 0) ? "Login to Spotify" : "Log Out"}
-          </Button>
+        </Button>
         </Navbar.Collapse>
       </Navbar>
 
       <Container>
-        {playlistsLoaded ?
+        {/* {playlistsLoaded ?
           playlists.items.map((p) => <p>{p.name}</p>) : null
-        }
+        } */}
+
+
         <Shuffler />
       </Container>
     </div>
