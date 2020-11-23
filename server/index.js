@@ -14,7 +14,7 @@ const CLIENT_URL = env === "development" ? "localhost" : "shuffle.plus";
 if (env === "development") {
     app.use(cors());
 } else {
-    const whitelist = [`${CLIENT_URL}:${CLIENT_PORT}`]
+    const whitelist = [`http://${CLIENT_URL}:${CLIENT_PORT}`]
     const corsOptions = {
         origin: function (origin, callback) {
             if (!origin || whitelist.indexOf(origin) !== -1) {
