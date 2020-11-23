@@ -8,12 +8,16 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 
+const CLIENT_URL = process.env.NODE_ENV === "development" ? "localhost" : "shuffle.plus";
+const CLIENT_PORT = "8080";
+const SERVER_PORT = "5000";
+
 function login(loggedIn) {
   if (loggedIn === 0) {
-    window.location.href = "http://localhost:5000/authorize";
+    window.location.href = `http://${CLIENT_URL}:${SERVER_PORT}/authorize`;
   }
   else {
-    window.location.href = "http://localhost:3000";
+    window.location.href = `http://${CLIENT_URL}:${CLIENT_PORT}`;
   }
 }
 
@@ -30,7 +34,7 @@ function App() {
     if (token !== null) {
       setLoggedIn(1);
 
-      const playlistURL = `http://localhost:5000/playlists?token=${token}`;
+      const playlistURL = `http://${CLIENT_URL}:${SERVER_PORT}/playlists?token=${token}`;
       fetch(playlistURL)
         .then((res) => {
           if (res.ok) {

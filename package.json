@@ -4,13 +4,16 @@
   "description": "Merge Spotify playlists dynamically",
   "main": "none",
   "dependencies": {
+    "concurrently": "^5.3.0",
     "spotify-web-api-node": "^5.0.0",
     "uuid": "^8.3.1"
   },
   "devDependencies": {},
   "scripts": {
     "install-all": "npm install . ./client ./server",
-    "dev": "echo Owen still needs to install concurrently lol"
+    "production-client": "cd client && npm run production",
+    "production-server": "cd server && npm run production",
+    "production": "concurrently \"npm:production-*\""
   },
   "repository": {
     "type": "git",

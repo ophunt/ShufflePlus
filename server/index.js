@@ -5,15 +5,16 @@ import SpotifyWebApi from "spotify-web-api-node";
 import dotenv from "dotenv";
 dotenv.config();
 
+const env = process.env.NODE_ENV || "development";
 const app = express();
 const PORT = 5000;
 const CLIENT_PORT = 80;
+const CLIENT_URL = env === "development" ? "localhost" : "shuffle.plus";
 
-const env = process.env.NODE_ENV || "development";
 if (env === "development") {
     app.use(cors());
 } else {
-    const whitelist = [`localhost:${CLIENT_PORT}`]
+    const whitelist = [`${CLIENT_URL}:${CLIENT_PORT}`]
     const corsOptions = {
         origin: function (origin, callback) {
             if (whitelist.indexOf(origin) !== -1) {
@@ -29,7 +30,7 @@ if (env === "development") {
 const spotifyAPI = new SpotifyWebApi({
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    redirectUri: `http://localhost:${PORT}/authorized`
+    redirectUri: `http://${CLIENT_URL}:${PORT}/authorized`
 });
 
 const SPOTIFY_SCOPES = [
@@ -62,7 +63,7 @@ app.get("/authorized", (req, res) => {
     } else {
         spotifyAPI.authorizationCodeGrant(code).then(
             async (data) => {
-                const clientURL = `http://localhost:${CLIENT_PORT}/?access_token=${data.body.access_token}`;
+                const clientURL = `http://${CLIENT_URL}:${CLIENT_PORT}/?access_token=${data.body.access_token}`;
                 res.redirect(clientURL);
             },
             (err) => {
@@ -113,5 +114,5 @@ app.get("/shuffle", async (req, res) => {
 })
 
 app.listen(PORT, () => {
-    console.log(`App running in mode ${env} at http://localhost:${PORT}`);
+    console.log(`App running in mode ${env} at http://${CLIENT_URL}:${PORT}`);
 });
