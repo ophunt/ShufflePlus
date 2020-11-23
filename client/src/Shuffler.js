@@ -7,7 +7,7 @@ import { Row, Col, Form, Carousel, Button } from 'react-bootstrap';
 function submitForm(token, playlistName, playlist1, playlist2, duplicates) {
     console.log(playlist1);
     console.log(playlist2);
-    const playlistURL = `http://localhost:5000/shuffle?token=${token}&name=${name}&p1=${playlist1}&p2=${playlist2}&d=${duplicates}`;
+    const playlistURL = `http://localhost:5000/shuffle?token=${token}&name=${playlistName}&p1=${playlist1}&p2=${playlist2}&d=${duplicates}`;
     fetch(playlistURL);
 }
 
