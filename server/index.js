@@ -8,7 +8,7 @@ dotenv.config();
 const env = process.env.NODE_ENV || "development";
 const app = express();
 const PORT = 5000;
-const CLIENT_PORT = 80;
+const CLIENT_PORT = 8080;
 const CLIENT_URL = env === "development" ? "localhost" : "shuffle.plus";
 
 if (env === "development") {
@@ -20,7 +20,7 @@ if (env === "development") {
             if (whitelist.indexOf(origin) !== -1) {
                 callback(null, true)
             } else {
-                callback(new Error('Illegal domain'))
+                callback(new Error(`Illegal domain ${origin} not in legal list ${whitelist.join(", ")}`))
             }
         }
     }
