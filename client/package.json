@@ -17,7 +17,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "production": "cross-env NODE_ENV=production serve -s build -p 80",
+    "production": "cross-env NODE_ENV=production serve -s build -p 8080",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
