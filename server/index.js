@@ -93,7 +93,7 @@ app.get("/shuffle", async (req, res) => {
     const p1 = req.query.p1;
     const p2 = req.query.p2;
     const allow_duplicates = req.query.d;
-    const name = req.query.name || "Shuffle+ Combined Playlist";
+    const name = req.query.name || "ShufflePlus Combined Playlist";
     
     // Fetch tracks
     spotifyAPI.setAccessToken(token);
