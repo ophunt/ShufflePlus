@@ -7,11 +7,12 @@ import { Row, Col, Form, Carousel, Button } from 'react-bootstrap';
 const CLIENT_URL = process.env.NODE_ENV === "development" ? "localhost" : "shuffle.plus";
 const SERVER_PORT = "5000";
 
-function submitForm(token, playlistName, playlist1, playlist2, duplicates) {
+async function submitForm(token, playlistName, playlist1, playlist2, duplicates) {
     console.log(playlist1);
     console.log(playlist2);
-    const playlistURL = `http://${CLIENT_URL}:${SERVER_PORT}/shuffle?token=${token}&name=${playlistName}&p1=${playlist1}&p2=${playlist2}&d=${duplicates}`;
-    fetch(playlistURL);
+    const shuffleURL = `http://${CLIENT_URL}:${SERVER_PORT}/shuffle?token=${token}&name=${playlistName}&p1=${playlist1}&p2=${playlist2}&d=${duplicates}`;
+    const playlistURL = await (await fetch(shuffleURL)).json();
+    console.log(playlistURL);
 }
 
 function Shuffler({ token, loggedIn, playlistsLoaded, playlists }) {

@@ -114,6 +114,9 @@ app.get("/shuffle", async (req, res) => {
         // Put all the tracks in the playlist
         spotifyAPI.addTracksToPlaylist(newPlaylist.body.id, playlistTracks.slice(i, i+100));
     }
+
+    // Return the playlist
+    res.send(JSON.stringify(newPlaylist.body.external_urls.spotify));
 })
 
 app.listen(PORT, () => {
