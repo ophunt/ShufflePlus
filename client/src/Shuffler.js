@@ -2,17 +2,15 @@ import './Shuffler.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Form, Carousel, Button } from 'react-bootstrap';
+import { Row, Col, Form, Carousel, Button, Alert } from 'react-bootstrap';
 
 const CLIENT_URL = process.env.NODE_ENV === "development" ? "localhost" : "shuffle.plus";
 const SERVER_PORT = "5000";
 
 async function submitForm(token, playlistName, playlist1, playlist2, duplicates) {
-    console.log(playlist1);
-    console.log(playlist2);
     const shuffleURL = `http://${CLIENT_URL}:${SERVER_PORT}/shuffle?token=${token}&name=${playlistName}&p1=${playlist1}&p2=${playlist2}&d=${duplicates}`;
     const playlistURL = await (await fetch(shuffleURL)).json();
-    console.log(playlistURL);
+    return playlistURL;
 }
 
 function Shuffler({ token, loggedIn, playlistsLoaded, playlists }) {
@@ -20,6 +18,8 @@ function Shuffler({ token, loggedIn, playlistsLoaded, playlists }) {
     const [playlist1, setPlaylist1] = useState("");
     const [playlist2, setPlaylist2] = useState("");
     const [duplicates, setDuplicates] = useState(false);
+    const [disabled, setDisabled] = useState(false);
+    const [playlistURL, setPlaylistURL] = useState("");
 
     // Default item selected is the first item
     useEffect(() => {
@@ -33,13 +33,6 @@ function Shuffler({ token, loggedIn, playlistsLoaded, playlists }) {
             {!loggedIn ?
                 <div>
                     <Row style={{ paddingTop: "1%" }}>
-                        {/* <Col className="text-center">
-                            <img src="/shufflelogo298x228.png" alt="Shuffle+ logo"></img>
-                            <h1 style={{paddingTop: "3%"}}>Welcome to <strong>Shuffle+</strong></h1>
-                            <p>Intelligently combine and shuffle your Spotify playlists</p>
-                            <h4>Login to Spotify to continue</h4>
-                        </Col> */}
-
                         <Carousel className="text-center carousel" style={{ maxWidth: "100%" }}>
                             <Carousel.Item>
                                 <img src="/party.jpg" alt="Party" style={{ maxWidth: "100%" }}></img>
@@ -68,6 +61,10 @@ function Shuffler({ token, loggedIn, playlistsLoaded, playlists }) {
                 :
                 <div><Row style={{ paddingTop: "5%" }}>
                     <Col className="text-center form">
+                        <Alert variant="success" show={playlistURL !== ""}>
+                            Success! <Alert.Link href={playlistURL}>Click here</Alert.Link> to go to your new playlist.
+                        </Alert>
+
                         <Form>
                             <Form.Group controlId="selectPlaylistName">
                                 <Form.Label>Enter a name for the new playlist:</Form.Label>
@@ -90,7 +87,10 @@ function Shuffler({ token, loggedIn, playlistsLoaded, playlists }) {
                                 </Form.Control>
                             </Form.Group>
                             <Form.Check type="switch" id="duplicateSwitch" label="Allow duplicates in the resulting playlist" onChange={(e) => setDuplicates(!duplicates)}></Form.Check>
-                            <Button variant="success" onClick={() => submitForm(token, playlistName, playlist1, playlist2, duplicates)}>Shuffle!</Button>
+                            <Button style={{marginTop: "1%"}} variant="success" disabled={disabled} onClick={async () => {
+                                setDisabled(true);
+                                await setPlaylistURL(await submitForm(token, playlistName, playlist1, playlist2, duplicates));
+                            }}>Shuffle!</Button>
                         </Form>
                     </Col>
                 </Row>
