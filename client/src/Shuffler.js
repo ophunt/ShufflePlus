@@ -61,7 +61,10 @@ function Shuffler({ token, loggedIn, playlistsLoaded, playlists }) {
                 :
                 <div><Row style={{ paddingTop: "5%" }}>
                     <Col className="text-center form">
-                        <Alert variant="success" show={playlistURL !== ""}>
+                        <Alert variant="success" show={playlistURL !== ""} dismissible onClose={() => {
+                            setPlaylistURL("");
+                            setDisabled(false);
+                        }}>
                             Success! <Alert.Link href={playlistURL}>Click here</Alert.Link> to go to your new playlist.
                         </Alert>
 
