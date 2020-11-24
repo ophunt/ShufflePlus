@@ -109,8 +109,11 @@ app.get("/shuffle", async (req, res) => {
     // Make a new playlist
     const newPlaylist = await spotifyAPI.createPlaylist(name, { "description": "Powered by Shuffle+" });
 
-    // Put all the tracks in the playlist
-    spotifyAPI.addTracksToPlaylist(newPlaylist.body.id, playlistTracks);
+    // Split into arrays of at most 100 tracks (limit for one transaction)
+    for (let i = 0; i < playlistTracks.length; i += 100) {
+        // Put all the tracks in the playlist
+        spotifyAPI.addTracksToPlaylist(newPlaylist.body.id, playlistTracks.slice(i, i+100));
+    }
 })
 
 app.listen(PORT, () => {
