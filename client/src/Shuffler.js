@@ -14,7 +14,7 @@ async function submitForm(token, playlistName, playlist1, playlist2, duplicates)
 }
 
 function Shuffler({ token, loggedIn, playlistsLoaded, playlists }) {
-    const [playlistName, setPlaylistName] = useState("Shuffle+ Combined Playlist");
+    const [playlistName, setPlaylistName] = useState("ShufflePlus Combined Playlist");
     const [playlist1, setPlaylist1] = useState("");
     const [playlist2, setPlaylist2] = useState("");
     const [duplicates, setDuplicates] = useState(false);

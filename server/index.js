@@ -101,10 +101,14 @@ app.get("/shuffle", async (req, res) => {
     const p2Tracks = await getAllPlaylistTracks(p2);
 
     // Combine and map to track id
-    const allTracks = p1Tracks.concat(p2Tracks).map(t => t.track.id).map(id => `spotify:track:${id}`);
+    const allTracks = p1Tracks
+        .concat(p2Tracks)
+        .map(t => t.track.id)
+        .filter(t => t !== null)
+        .map(id => `spotify:track:${id}`);
 
     // Dedup if necessary
-    const playlistTracks = allow_duplicates ? allTracks : [...new Set(array)];
+    const playlistTracks = allow_duplicates ? allTracks : [...new Set(allTracks)];
 
     // Make a new playlist
     const newPlaylist = await spotifyAPI.createPlaylist(name, { "description": "Powered by Shuffle+" });
@@ -112,7 +116,7 @@ app.get("/shuffle", async (req, res) => {
     // Split into arrays of at most 100 tracks (limit for one transaction)
     for (let i = 0; i < playlistTracks.length; i += 100) {
         // Put all the tracks in the playlist
-        spotifyAPI.addTracksToPlaylist(newPlaylist.body.id, playlistTracks.slice(i, i + 100));
+        await spotifyAPI.addTracksToPlaylist(newPlaylist.body.id, playlistTracks.slice(i, i + 100));
     }
 
     // Return the playlist
