@@ -13,7 +13,10 @@
     "install-all": "npm install . ./client ./server",
     "production-client": "cd client && npm run production",
     "production-server": "cd server && npm run production",
-    "production": "concurrently \"npm:production-*\""
+    "production": "concurrently \"npm:production-*\"",
+    "dev-client": "cd client && npm run dev",
+    "dev-server": "cd server && npm run dev",
+    "dev": "concurrently \"npm:dev-*\""
   },
   "repository": {
     "type": "git",
